@@ -2,13 +2,12 @@
 
 Over 10 years ago, I wrote an article on trace logging with Log4Net https://www.codeproject.com/Articles/15155/Tracing-with-Log4Net-and-the-Context-Singleton-Des that described an approach to instrumenting code that will produced time results in your logs. I used this pattern for many web projects over the years and wanted a way to use it with Sitecore. 
 
-I used this approach to fine tune Handlebars Binding Performance, and leverage it every time I want to figure out where the bottlenecks in code are. Implemented as a Pipeline Component that flushes on end,  it can be easily turned on and off to avoid writing unnecessary log statements. 
+I used this approach to fine tune [Handlebars](https://github.com/mtelligent/Handlebars-For-Sitecore) Binding Performance, and leverage it every time I want to figure out where the bottlenecks in code are. Implemented as a Pipeline Component that flushes on end,  it can be easily turned on and off to avoid writing unnecessary log statements. 
 
 Here’s an example of the kind of output to expect: (which are real numbers for Handlebars for Sitecore to bind a simple collection container with four items to a simple template)
 
-23456 16:35:16 INFO  Performance Data for: http://starterkit91.dev.local/Blog
-
 ```
+23456 16:35:16 INFO  Performance Data for: http://starterkit91.dev.local/Blog
 Time		Since First	Since Last	Comments
 4:35:16 PM	0.0000000	0.0000000	Timer Initialized
 4:35:16 PM	0.0000000	0.0000000	Call to SetupContainer for ItemList
