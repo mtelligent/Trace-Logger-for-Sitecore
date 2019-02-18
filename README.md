@@ -7,6 +7,8 @@ I used this approach to fine tune Handlebars Binding Performance, and leverage i
 Here’s an example of the kind of output to expect: (which are real numbers for Handlebars for Sitecore to bind a simple collection container with four items to a simple template)
 
 23456 16:35:16 INFO  Performance Data for: http://starterkit91.dev.local/Blog
+
+```
 Time		Since First	Since Last	Comments
 4:35:16 PM	0.0000000	0.0000000	Timer Initialized
 4:35:16 PM	0.0000000	0.0000000	Call to SetupContainer for ItemList
@@ -26,11 +28,12 @@ Time		Since First	Since Last	Comments
 4:35:16 PM	0.0657909	0.0000000	{49263816-E65D-45E7-8A31-BCA5378A4A7A}
 4:35:16 PM	0.0657909	0.0000000	{BA98F9C4-E599-4E43-8A58-4B4F5BFC43C7}
 4:35:16 PM	0.0657909	0.0000000	Items processed, storing in context.
+```
 
 You can use this approach to sample complex calls to identify which areas are taking time. 
 
 The logger itself is implemented as a Singleton, so you can log across classes, projects and solutions. Just add a reference to SF.Foundation.TraceLogger and you can write code like this.
 
-TraceLogger.Current.Write("Call to SetupContainer for ItemList");
+```TraceLogger.Current.Write("Call to SetupContainer for ItemList");```
 
 When enabled, the output is flushed at the end of the request. If you don't want to wait until the end of the request, you can set the "SF.TraceLogger.LogImmediately" Sitecore Setting to true, and each logged item will log as it happens, in addition to the performance data logged at the end.
