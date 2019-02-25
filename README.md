@@ -1,10 +1,12 @@
 # Trace Logger for Sitecore
 
-Over 10 years ago, I wrote an article on [trace logging with Log4Net](https://www.codeproject.com/Articles/15155/Tracing-with-Log4Net-and-the-Context-Singleton-Des) that described an approach to instrumenting code that will produced time results in your logs. I used this pattern for many web projects over the years and wanted a way to use it with Sitecore. 
+This library makes it easy to sample performance metrics in the log. 
 
-I used this approach to fine tune [Handlebars](https://github.com/mtelligent/Handlebars-For-Sitecore) Binding Performance, and leverage it every time I want to figure out where the bottlenecks in code are. Implemented as a Pipeline Component that flushes on end,  it can be easily turned on and off to avoid writing unnecessary log statements. 
+The logger itself is implemented as a Singleton, so you can log across classes, projects and solutions. Just add a reference to SF.Foundation.TraceLogger and you can write code like this.
 
-Here’s an example of the kind of output to expect: (which are real numbers for Handlebars for Sitecore to bind a simple collection container with four items to a simple template)
+```TraceLogger.Current.Write("Call to SetupContainer for ItemList");```
+
+At the end of the request, all log statements are flushed to the logs with detailed performance metrcis. Here’s an example of the kind of output to expect: (which are real numbers for Handlebars for Sitecore to bind a simple collection container with four items to a simple template)
 
 ```
 23456 16:35:16 INFO  Performance Data for: http://starterkit91.dev.local/Blog
@@ -31,17 +33,13 @@ Time		Since First	Since Last	Comments
 
 You can use this approach to sample complex calls to identify which areas are taking time. 
 
-The logger itself is implemented as a Singleton, so you can log across classes, projects and solutions. Just add a reference to SF.Foundation.TraceLogger and you can write code like this.
-
-```TraceLogger.Current.Write("Call to SetupContainer for ItemList");```
-
 When enabled, the output is flushed at the end of the request. If you don't want to wait until the end of the request, you can set the "SF.TraceLogger.LogImmediately" Sitecore Setting to true, and each logged item will log as it happens, in addition to the performance data logged at the end.
 
 # nuget
-Add to your projects with nuget
+Trace Logger for Sitecore can be installed with nuget: (for .Net 4.7.2)
+- **Main Package** (Includes Config to Enable in Sitecore): https://www.nuget.org/packages/TraceLoggerForSitecore/
+- **Core Package** (Assembly Only): https://www.nuget.org/packages/TraceLoggerForSitecoreCore/ 
 
-https://www.nuget.org/packages/TraceLoggerForSitecore/
+Or download latest release.
 
-https://www.nuget.org/packages/TraceLoggerForSitecoreCore/ (assembly only)
-
-Note that it's been tested on Sitecore 9.1 only. Nuget targets .Net framework 4.72
+Note that current release/nuget package has been tested on Sitecore 9.1 only.
